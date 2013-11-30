@@ -1,0 +1,1 @@
+require 'mina/flowdock/version'
