@@ -1,7 +1,7 @@
-require 'rubygems'
+require "rubygems"
 
 begin
-  require 'bundler'
+  require "bundler"
 rescue LoadError => e
   STDERR.puts e.message
   STDERR.puts "Run `gem install bundler` to install Bundler."
@@ -16,4 +16,4 @@ rescue Bundler::BundlerError => e
   exit e.status_code
 end
 
-require 'minitest/autorun'
+require "minitest/autorun"

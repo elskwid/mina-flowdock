@@ -7,7 +7,7 @@
 
 ## Description
 
-TODO: Description
+Mina plugin to add [Flowdock](http://flowdock.com) notifications to deployments.
 
 ## Features
 
