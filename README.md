@@ -72,7 +72,7 @@ set :flowdock_api_token, ["firstflowapitoken", "secondflowapitoken"]
 set :flowdock_deploy_env, stage
 
 # optional settings
-set :flowdock_deploy_tags, ["my_tag1", "my_tag2]
+set :flowdock_deploy_tags, ["my_tag1", "my_tag2"]
 ```
 
 Then run `mina deploy ...` as usual. Requiring `mina/flowdock` extends the
