@@ -15,6 +15,7 @@ set_default :flowdock_message,
 set :flowdock_deploy_tags,
   ["deploy", "#{flowdock_deploy_env}"] + flowdock_deploy_tags
 
+desc "Update configured Flowdock flows after a deployment"
 namespace :flowdock do
   task :notify do
 
