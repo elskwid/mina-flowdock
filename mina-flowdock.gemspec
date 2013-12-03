@@ -5,8 +5,8 @@ require File.expand_path("../lib/mina/flowdock/version", __FILE__)
 Gem::Specification.new do |gem|
   gem.name          = "mina-flowdock"
   gem.version       = Mina::Flowdock::VERSION
-  gem.summary       = %q{Mina plugin to add flowdock deployment notifications.}
-  gem.description   = %q{Mina plugin to add flowdock deployment notifications.}
+  gem.summary       = %q{Mina plugin to add Flowdock deployment notifications.}
+  gem.description   = %q{Mina plugin to add Flowdock deployment notifications.}
   gem.license       = "MIT"
   gem.authors       = ["Don Morrison"]
   gem.email         = "don@elskwid.net"
