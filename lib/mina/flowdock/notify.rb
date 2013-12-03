@@ -2,8 +2,8 @@
 
 set_default :flowdock_deploy_tags,  []
 set_default :flowdock_source,       "Mina deployment"
-set_default :flowdock_from_name,    git_config["user.name"]
-set_default :flowdock_from_address, git_config["user.email"]
+set_default :flowdock_from_name,    git_user_name
+set_default :flowdock_from_address, git_user_email
 
 
 set_default :flowdock_message_subject,

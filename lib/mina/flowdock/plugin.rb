@@ -19,6 +19,14 @@ module Mina
         erb_string(settings.send :flowdock_message)
       end
 
+      def git_user_name
+        git_config["user.name"]
+      end
+
+      def git_user_email
+        git_config["user.email"]
+      end
+
       def git_config
         Git.open(".").config
       end
