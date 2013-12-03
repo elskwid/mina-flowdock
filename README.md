@@ -91,21 +91,21 @@ settings are missing.
 
 The name of the project being deployed. Used in the subject of the notfications.
 
-_(Default: not set)_
+**Default:** not set
 
 #### `flowdock_api_token`
 
 List of one or more api tokens for the flows that should receive notifications.
 Used to authorize inbox notifications.
 
-_(Default: not set)_
+**Default:** not set
 
 #### `flowdock_deploy_env`
 
 Deployment environment for this deploy. (i.e. production, staging, qa). Used
 in the default notification message.
 
-_(Default: not set)_
+**Default:** not set
 
 ### Other / Optional
 
@@ -117,33 +117,33 @@ be otherwise configurable.
 List of tags used to tag the team inbox notification. Always includes both
 the `deploy` and deploy env name as tags.
 
-_(Default: ["deploy", flowdock_deploy_env])_
+**Default:** ["deploy", flowdock_deploy_env]
 
 #### `flowdock_source`
 
 Source for Flowdock notifications.
 
-_(Default: "Mina deployment")_
+**Default:** "Mina deployment"
 
 #### `flowdock_from_name`
 
 Name of the person sending the notifications. Used as the user link in
 notifications.
 
-_(Default: "user.name" retrieved from git config for the local repository.)_
+**Default:** "user.name" retrieved from git config for the local repository.
 
 #### `flowdock_from_email`
 
 Email of the person sending the notifications. Used as the user link in
 notificiations.
 
-_(Default: "user.email" retrieved from git config for the local repository.)_
+**Default:** "user.email" retrieved from git config for the local repository.
 
 #### `flowdock_message_subject`
 
 ERB string used as the notification subject.
 
-_(Default: "<%= flowdock_project_name %> deployed to #<%= flowdock_deploy_env %>")_
+**Default:** "<%= flowdock_project_name %> deployed to #<%= flowdock_deploy_env %>"
 
 Example: MyProject deployed to staging.
 
@@ -151,7 +151,7 @@ Example: MyProject deployed to staging.
 
 ERB string used as the notification body.
 
-_(Default: "<%= flowdock_deploy_type %> <%= flowdock_deploy_ref %> (<%= flowdock_deploy_sha %>) was deployed to <%= flowdock_deploy_env %>.")_
+**Default:** "<%= flowdock_deploy_type %> <%= flowdock_deploy_ref %> (<%= flowdock_deploy_sha %>) was deployed to <%= flowdock_deploy_env %>."
 
 Example: Branch feature-branch (git-sha) was deployed to staging.
 
