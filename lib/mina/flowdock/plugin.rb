@@ -1,4 +1,4 @@
-%w(flowdock grit mina/hooks).each do |lib|
+%w(flowdock git mina/hooks).each do |lib|
   begin
     require lib
   rescue LoadError => e
@@ -20,7 +20,7 @@ module Mina
       end
 
       def git_config
-        Grit::Config.new(Grit::Repo.new("."))
+        Git.open(".").config
       end
 
       def erb_string(string, b = binding)
