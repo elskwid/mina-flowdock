@@ -41,8 +41,9 @@ module Mina
         flow = "flow: #{flow.api_token} [#{flow.project}]"
         subj = "subject: #{flowdock_message_subject}"
         msg  = "message: #{flowdock_message}"
+        from = "from: #{git_user_name} <#{git_user_email}>"
 
-        [flow, subj, msg].each do |debug|
+        [flow, subj, msg, from].each do |debug|
             print_local_debug(debug)
         end
       end
