@@ -1,9 +1,13 @@
 require "mina/flowdock/version"
 require "mina/flowdock/plugin"
 
-extend Mina::Flowdock::Plugin
+if defined?(Mina) && self.respond_to?(:mina_cleanup!)
+  # supporting module for notify task
+  extend Mina::Flowdock::Plugin
 
-require "mina/flowdock/notify" # task
+  # notify task
+  require "mina/flowdock/notify"
 
-# Hook our task in after mina is done running
-after_mina :"flowdock:notify"
+  # hook notify after deploy
+  after_mina :"flowdock:notify"
+end
