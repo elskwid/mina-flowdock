@@ -40,7 +40,7 @@ The notifications are not sent if mina is run with the `--simulate` option.
 
 ### Uses git for user name and email
 
-The `grit` library is used to access the git config for the local repository
+The `Ruby/Git` library is used to access the git config for the local repository
 and send the notification from the user configured there.
 
 ### Configurable settings
@@ -175,7 +175,7 @@ The git sha retrieved from the server after deployment. Uses the
 ## Requirements
 
   * [flowdock](https://github.com/flowdock/flowdock-api/)
-  * [grit](https://github.com/mojombo/grit)
+  * [git](https://github.com/schacon/ruby-git)
   * [mina](https://github.com/nadarei/mina)
   * [mina-hooks](https://github.com/elskwid/mina-hooks)
 
