@@ -7,7 +7,7 @@
 
 ## Description
 
-Mina plugin to add [Flowdock](http://flowdock.com) deployment notifications.
+[Mina](http://nadarei.co/mina) plugin to add [Flowdock](http://flowdock.com) deployment notifications.
 
 `mina-flowdock` pushes deployment notifications to Flowdock team inboxes using
 the Flowdock [API](https://github.com/flowdock/flowdock-api/).
@@ -21,7 +21,7 @@ Add multiple Flowdock API tokens to send notifications to multiple flows.
 ### Default tags
 
 Notifications are tagged with `#deploy` and the stage (deploy env). More
-tags can be added. See (Settings).
+tags can be added (See [Settings](#settings)).
 
 ### Supports notifications for commit/branch
 
@@ -45,9 +45,9 @@ and send the notification from the user configured there.
 
 ### Configurable settings
 
-Most of the settings are easily overridden. See (Settings).
+Most of the settings are easily overridden (See [Settings](#settings)).
 
-## Comparison to flowdock/capistrano
+## Comparison to `flowdock/capistrano`
 
 There are some differences between the Mina notifications and those sent
 from [flowdock/capistrano](https://github.com/flowdock/flowdock-api/blob/master/lib/flowdock/capistrano.rb)
@@ -61,10 +61,11 @@ branch or commit has been deployed to a specific stage.
 
 ## Usage
 
+Add the following to your `config/deploy.rb` file:
+
 ```ruby
 # In your deploy tasks...
-
-require 'mina/flowdock'
+require "mina/flowdock"
 
 # required settings
 set :flowdock_project_name, "my_project"
@@ -75,7 +76,7 @@ set :flowdock_deploy_env, stage
 set :flowdock_deploy_tags, ["my_tag1", "my_tag2"]
 ```
 
-Then run `mina deploy ...` as usual. Requiring `mina/flowdock` extends the
+Then run `mina deploy` as usual. Requiring `mina/flowdock` extends the
 file with some helper methods, includes the Flowdock notification task
 (`flowdock:notify`), and uses `mina-hooks` to queue the notifications to
 run after the deployment.
@@ -85,92 +86,40 @@ run after the deployment.
 ### Required
 
 The `flowdock:notify` task will exit with an error if any of the required
-settings are missing.
+settings are missing:
 
-#### `flowdock_project_name`
+| Name               | Description                             |
+| ------------------ | --------------------------------------- |
+| `flowdock_project_name` | The name of the project being deployed. Used in the subject of the notfications.
+| `flowdock_api_token`    | List of one or more api tokens for the flows that should receive notifications. Used to authorize inbox notifications.
+| `flowdock_deploy_env`   | Deployment environment for this deploy (i.e. `production`, `staging`, `qa`). Used in the default notification message.
 
-The name of the project being deployed. Used in the subject of the notfications.
-
-**Default:** not set
-
-#### `flowdock_api_token`
-
-List of one or more api tokens for the flows that should receive notifications.
-Used to authorize inbox notifications.
-
-**Default:** not set
-
-#### `flowdock_deploy_env`
-
-Deployment environment for this deploy. (i.e. production, staging, qa). Used
-in the default notification message.
-
-**Default:** not set
 
 ### Other / Optional
 
 These settings aren't required to be set in your deployment scripts or may
 be otherwise configurable.
 
-#### `flowdock_deploy_tags`
+| Name               | Description                             |
+| ------------------ | --------------------------------------- |
+| `flowdock_deploy_tags` | List of tags used to tag the team inbox notification. Always includes both the `deploy` and deploy env name as tags. <br> **Default:** `["deploy", flowdock_deploy_env]` |
+| `flowdock_source`      | Source for Flowdock notifications. <br> **Default:** `"Mina deployment"` |
+| `flowdock_from_name`   | Name of the person sending the notifications. Used as the user link in notifications. <br> **Default:** `user.name` retrieved from git config for the local repository |
+| `flowdock_from_email`  | Email of the person sending the notifications. Used as the user link in notificiations. <br> **Default:** `user.email` retrieved from git config for the local repository |
+| `flowdock_message_subject` | ERB string used as the notification subject. <br> **Default:** `<%= flowdock_project_name %> deployed to #<%= flowdock_deploy_env %>` <br> _(Example: MyProject deployed to staging)_ |
+| `flowdock_message` | ERB string used as the notification body. <br> **Default:** `<%= flowdock_deploy_type %> <%= flowdock_deploy_ref %> (<%= flowdock_deploy_sha %>) was deployed to <%= flowdock_deploy_env %>.` <br> _(Example: Branch feature-branch (git-sha) was deployed to staging.)_ |
 
-List of tags used to tag the team inbox notification. Always includes both
-the `deploy` and deploy env name as tags.
-
-**Default:** ["deploy", flowdock_deploy_env]
-
-#### `flowdock_source`
-
-Source for Flowdock notifications.
-
-**Default:** "Mina deployment"
-
-#### `flowdock_from_name`
-
-Name of the person sending the notifications. Used as the user link in
-notifications.
-
-**Default:** "user.name" retrieved from git config for the local repository.
-
-#### `flowdock_from_email`
-
-Email of the person sending the notifications. Used as the user link in
-notificiations.
-
-**Default:** "user.email" retrieved from git config for the local repository.
-
-#### `flowdock_message_subject`
-
-ERB string used as the notification subject.
-
-**Default:** "<%= flowdock_project_name %> deployed to #<%= flowdock_deploy_env %>"
-
-Example: MyProject deployed to staging.
-
-#### `flowdock_message`
-
-ERB string used as the notification body.
-
-**Default:** "<%= flowdock_deploy_type %> <%= flowdock_deploy_ref %> (<%= flowdock_deploy_sha %>) was deployed to <%= flowdock_deploy_env %>."
-
-Example: Branch feature-branch (git-sha) was deployed to staging.
 
 ### Internal
 
 These can't be overridden. Well, not easily overridden.
 
-#### `flowdock_deploy_type`
+| Name               | Description                             |
+| ------------------ | --------------------------------------- |
+| `flowdock_deploy_type` | Either `Branch` or `Commit` depending on the option passed to Mina. |
+| `flowdock_deploy_ref`  | Either the branch name or the commit sha passed ot Mina. |
+| `flowdock_deploy_sha`  | The git sha retrieved from the server after deployment. Uses the `flowdock_deploy_ref` to get the sha and return it for use in notifications. |
 
-One of "Branch" or "Commit" depending on the option passed to mina.
-
-#### `flowdock_deploy_ref`
-
-Either the branch name or the commit sha passed ot mina.
-
-#### `flowdock_deploy_sha`
-
-The git sha retrieved from the server after deployment. Uses the
-`flowdock_deploy_ref` to get the sha and return it for use in notifications.
 
 ## Requirements
 
@@ -179,12 +128,25 @@ The git sha retrieved from the server after deployment. Uses the
   * [mina](https://github.com/nadarei/mina)
   * [mina-hooks](https://github.com/elskwid/mina-hooks)
 
-## Install
+## Installation
+
+Add this line to your application's Gemfile:
+
+```ruby
+gem "mina-flowdock"
+```
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
 
     $ gem install mina-flowdock
+
 
 ## Copyright
 
 Copyright (c) 2013 Don Morrison
 
-See {file:LICENSE.txt} for details.
+See [LICENSE.txt](LICENSE.txt) for details.
